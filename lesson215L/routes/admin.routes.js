@@ -1,0 +1,21 @@
+const {
+  create,
+  loginAdmin,
+  getAll,
+  getById,
+  update,
+  remove,
+} = require("../controllers/admin.controller");
+const adminJwtGuard = require("../middleware/guards/admin-jwt.guard");
+const adminSelfGuard = require("../middleware/guards/admin-self.guard");
+
+const router = require("express").Router();
+
+router.post("/create", create);
+router.post("/login", loginAdmin);
+router.get("/", adminJwtGuard, getAll);
+router.get("/:id", adminJwtGuard, adminSelfGuard, getById); // agar boshqa id dan kirilsa malumotlarni korsatmaydi
+router.patch("/:id", adminJwtGuard, adminSelfGuard, update);
+router.delete("/:id", adminJwtGuard, adminSelfGuard, remove);
+
+module.exports = router;
