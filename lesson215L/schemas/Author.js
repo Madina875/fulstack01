@@ -23,6 +23,7 @@ const aurSchema = new Schema(
     referredDetails: { type: String },
     colors: { type: Array },
     is_yes: { type: String },
+    refresh_token: { type: String },
   },
   {
     versionKey: false,
@@ -31,4 +32,3 @@ const aurSchema = new Schema(
 );
 
 module.exports = model("Author", aurSchema);
-
