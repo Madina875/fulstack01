@@ -1,5 +1,5 @@
 {
-  "port": 3333,
+  "port": 4444,
   "dbUri": "mongodb+srv://superadmin:admin123@cluster0.uevvi7d.mongodb.net/itterm?retryWrites=true&w=majority&appName=Cluster0",
   "tokenKey": "MySecretTokenKey",
   "adminTokenKey": "MySecretTokenKeyAdmin",
@@ -10,5 +10,11 @@
   "refresh_key": "RefreshTokenSecretKey",
   "access_time": "15h",
   "refresh_time": "15d",
-  "cookie_refresh_time": 1296000000
+  "cookie_refresh_time": 1296000000,
+
+  "smtp_password": "hiowzuwimymvxbmv",
+  "smtp_host": "smtp.gmail.com",
+  "smtp_port": 587,
+  "smtp_user": "evaevasmq@gmail.com",
+  "api_url": "http://localhost:3333"
 }

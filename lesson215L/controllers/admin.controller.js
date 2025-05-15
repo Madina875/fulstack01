@@ -100,8 +100,8 @@ const loginAdmin = async (req, res) => {
     // });
 
     const tokens = jwtService.generateTokens(payload);
-    author.refresh_token = tokens.refreshToken;
-    await author.save();
+    admin.refresh_token = tokens.refreshToken;
+    await admin.save();
 
     res.cookie("refreshToken", tokens.refreshToken, {
       httpOnly: true,
@@ -143,6 +143,49 @@ const logoutAdmin = async (req, res) => {
   }
 };
 
+// const refreshAdminToken = async (req, res) => {
+//   try {
+//     const { refreshToken } = req.cookies;
+
+//     if (!refreshToken) {
+//       return res
+//         .status(400)
+//         .send({ message: "cookieda refresh token topilmadi" });
+//     }
+
+//     //verify
+//     await jwtService.verifyRefreshToken(refreshToken);
+
+//     const admin = await Admin.findOne({ refresh_token: refreshToken });
+//     if (!admin) {
+//       return res
+//         .status(401)
+//         .send({ message: "bazada refresh token topilmadi" });
+//     }
+//     const payload = {
+//       id: admin._id,
+//       is_creator: admin.is_creator,
+//       name: admin.name,
+//     };
+//     const tokens = jwtService.generateTokens(payload);
+//     admin.refresh_token = tokens.refreshToken;
+//     await admin.save();
+
+//     res.cookie("refreshToken", tokens.refreshToken, {
+//       httpOnly: true,
+//       maxAge: config.get("cookie_refresh_time"),
+//     });
+
+//     res.status(201).send({
+//       message: "tokenlar yangilandi",
+//       id: admin.id,
+//       accessToken: tokens.accessToken,
+//     });
+//   } catch (error) {
+//     sendErrorResponse(error, res);
+//   }
+// };
+
 module.exports = {
   create,
   getAll,
@@ -151,4 +194,5 @@ module.exports = {
   update,
   loginAdmin,
   logoutAdmin,
+  // refreshAdminToken,
 };

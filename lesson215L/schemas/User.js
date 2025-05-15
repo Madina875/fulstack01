@@ -5,6 +5,7 @@ let userSchema = new Schema({
   is_active: { type: Boolean, required: true },
   password: { type: String, required: true },
   refresh_token: { type: String },
+  activation_link: { type: String },
 });
 
 module.exports = model("User", userSchema);

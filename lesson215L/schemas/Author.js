@@ -24,6 +24,7 @@ const aurSchema = new Schema(
     colors: { type: Array },
     is_yes: { type: String },
     refresh_token: { type: String },
+    activation_link: { type: String },
   },
   {
     versionKey: false,

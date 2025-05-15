@@ -108,18 +108,15 @@ const loginUser = async (req, res) => {
 
 const logoutUser = async (req, res) => {
   try {
-    console.log(req.cookies);
-    console.log(req.headers.cookie);
-
     const { refreshToken } = req.cookies;
-
+    console.log(refreshToken);
     if (!refreshToken) {
       return res
         .status(400)
         .send({ message: "cookieda refresh token topilmadi" });
     }
 
-    const user = await Admin.findOneAndUpdate(
+    const user = await User.findOneAndUpdate(
       { refresh_token: refreshToken },
       { refresh_token: "" },
       { new: true }
@@ -129,11 +126,54 @@ const logoutUser = async (req, res) => {
     }
 
     res.clearCookie("refreshToken");
-    res.send({ admin });
+    res.send({ user });
   } catch (error) {
     sendErrorResponse(error, res);
   }
 };
+
+// const refreshUserToken = async (req, res) => {
+//   try {
+//     const { refreshToken } = req.cookies;
+
+//     if (!refreshToken) {
+//       return res
+//         .status(400)
+//         .send({ message: "cookieda refresh token topilmadi" });
+//     }
+
+//     //verify
+//     await jwtService.verifyRefreshToken(refreshToken);
+
+//     const user = await User.findOne({ refresh_token: refreshToken });
+//     if (!user) {
+//       return res
+//         .status(401)
+//         .send({ message: "bazada refresh token topilmadi" });
+//     }
+//     const payload = {
+//       id: user._id,
+//       is_active: user.is_active,
+//       name: user.name,
+//     };
+//     const tokens = jwtService.generateTokens(payload);
+//     user.refresh_token = tokens.refreshToken;
+//     await user.save();
+
+//     res.cookie("refreshToken", tokens.refreshToken, {
+//       httpOnly: true,
+//       maxAge: config.get("cookie_refresh_time"),
+//     });
+
+//     res.status(201).send({
+//       message: "tokenlar yangilandi",
+//       id: user.id,
+//       accessToken: tokens.accessToken,
+//     });
+//   } catch (error) {
+//     sendErrorResponse(error, res);
+//   }
+// };
 
 module.exports = {
   create,
@@ -143,4 +183,5 @@ module.exports = {
   update,
   loginUser,
   logoutUser,
+  // refreshUserToken,
 };

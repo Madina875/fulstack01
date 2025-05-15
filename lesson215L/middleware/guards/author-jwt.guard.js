@@ -2,8 +2,9 @@ const { sendErrorResponse } = require("../../helpers/send_error_response");
 
 const config = require("config"); //default jsonnning ichidan malumotni chiqarib olish un kk
 const jwt = require("jsonwebtoken");
+const jwtService = require("../../service/jwt.service");
 
-module.exports = (req, res, next) => {
+module.exports = async (req, res, next) => {
   try {
     const authorization = req.headers.authorization;
     console.log(authorization); // you can see the entered token in terminal
@@ -20,10 +21,9 @@ module.exports = (req, res, next) => {
     }
 
     //decoded payload will be in console
-    const decodedPayload = jwt.verify(token, config.get("tokenKey"));
+    const decodedPayload = await jwtService.verifyAccessToken(token);
     // console.log(decodedPayload);
 
-    
     // if (!decodedPayload.is_active) {
     //   return res.status(403).send({ message: "you are not an active person 🫤🪽" });
     // }

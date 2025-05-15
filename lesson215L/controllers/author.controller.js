@@ -2,10 +2,13 @@ const { sendErrorResponse } = require("../helpers/send_error_response");
 const Author = require("../schemas/Author");
 const { aurValidation } = require("../validation/aur.validation");
 
+const uuid = require("uuid");
+
 const config = require("config"); //default jsonnning ichidan malumotni chiqarib olish un kk
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const jwtService = require("../service/jwt.service");
+const mailService = require("../service/mail.service");
 
 const create = async (req, res) => {
   try {
@@ -16,11 +19,17 @@ const create = async (req, res) => {
     }
 
     const hashedPassword = bcrypt.hashSync(value.password, 7);
-
+    const activation_link = uuid.v4();
     const newAuthor = await Author.create({
       ...value,
       password: hashedPassword,
+      activation_link,
     });
+
+    const link = `${config.get(
+      "api_url"
+    )}/api/author/activate/${activation_link}`;
+    await mailService.sendMail(value.email, link);
 
     res.status(201).send({ message: "New author added", newAuthor });
   } catch (error) {
@@ -78,7 +87,6 @@ const loginAuthor = async (req, res) => {
         .status(401)
         .send({ message: "email or password is incorrect" });
     }
-    console.log(author);
 
     //auth
     const validPassword = bcrypt.compareSync(password, author.password);
@@ -108,6 +116,22 @@ const loginAuthor = async (req, res) => {
       httpOnly: true,
       maxAge: config.get("cookie_refresh_time"),
     });
+
+    //-----------------------------test un error ---------------------------
+    //agar throw bolsa catch ushlab olmaydi
+    try {
+      setTimeout(function () {
+        throw new Error("UncaughtException example");
+      }, 1000);
+    } catch (error) {
+      console.log(error);
+    }
+
+    new Promise((_, reject) => {
+      reject(new Error("UnHandledRejection example"));
+    });
+
+    //-----------------------------test un error ---------------------------
 
     res.status(201).send({ message: "welcome", id: author.id, tokens });
   } catch (error) {
@@ -144,6 +168,71 @@ const logoutAuthor = async (req, res) => {
   }
 };
 
+const refreshAuthorToken = async (req, res) => {
+  try {
+    const { refreshToken } = req.cookies;
+
+    if (!refreshToken) {
+      return res
+        .status(400)
+        .send({ message: "cookieda refresh token topilmadi" });
+    }
+
+    //verify
+    await jwtService.verifyRefreshToken(refreshToken);
+
+    const author = await Author.findOne({ refresh_token: refreshToken });
+    if (!author) {
+      return res
+        .status(401)
+        .send({ message: "bazada refresh token topilmadi" });
+    }
+    const payload = {
+      id: author._id,
+      email: author.email,
+      is_active: author.is_active,
+      is_export: author.is_export,
+    };
+
+    const tokens = jwtService.generateTokens(payload);
+    author.refresh_token = tokens.refreshToken;
+    await author.save();
+
+    res.cookie("refreshToken", tokens.refreshToken, {
+      httpOnly: true,
+      maxAge: config.get("cookie_refresh_time"),
+    });
+    res.status(201).send({
+      message: "tokenlar yangilandi",
+      id: author.id,
+      accessToken: tokens.accessToken,
+    });
+  } catch (error) {
+    sendErrorResponse(error, res);
+  }
+};
+
+const authorActivate = async (req, res) => {
+  try {
+    const { link } = req.params;
+    const author = await Author.findOne({ activation_link: link });
+    if (!author) {
+      return res.status(400).send({ message: "Author link noto'g'ri" });
+    }
+    if (author.is_active) {
+      return res
+        .status(400)
+        .send({ message: "Author avval faollashtirilgan noto'g'ri" });
+    }
+
+    author.is_active = true;
+    await author.save();
+    res.send({ message: "avtor faollashtirildi", isActive: author.is_active });
+  } catch (error) {
+    sendErrorResponse(error, res);
+  }
+};
+
 module.exports = {
   create,
   getAll,
@@ -152,4 +241,8 @@ module.exports = {
   update,
   loginAuthor,
   logoutAuthor,
+  refreshAuthorToken,
+  authorActivate,
 };
+
+//errorhandl...
