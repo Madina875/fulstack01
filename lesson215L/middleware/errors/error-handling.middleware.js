@@ -1,7 +1,9 @@
 const ApiError = require("../../error/ApiError");
+const logger = require("../../service/logger.service");
 
 module.exports = function (err, req, res, next) {
   console.log(err);
+  // logger.error(err);
   if (err instanceof ApiError) {
     return res.status(err.status).send({ message: err.message });
   }
@@ -12,4 +14,3 @@ module.exports = function (err, req, res, next) {
 
   return res.status(500).send({ message: "Nazarda tutilmagan xatolik" });
 };
-

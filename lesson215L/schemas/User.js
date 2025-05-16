@@ -6,6 +6,7 @@ let userSchema = new Schema({
   password: { type: String, required: true },
   refresh_token: { type: String },
   activation_link: { type: String },
+  email: { type: String, trim: true },
 });
 
 module.exports = model("User", userSchema);

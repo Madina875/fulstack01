@@ -6,7 +6,8 @@ const {
   update,
   remove,
   logoutUser,
-  // refreshUserToken,
+  refreshUserToken,
+  userActivate,
   // authorActivate,
 } = require("../controllers/user.controller");
 const userJwtGuard = require("../middleware/guards/user-jwt.guard");
@@ -16,10 +17,10 @@ const router = require("express").Router();
 
 router.post("/create", create);
 router.post("/login", loginUser);
-router.post("/sds/logout", logoutUser);
+router.get("/logout", logoutUser);
 
-// router.post("/refresh", refreshUserToken);
-// router.get("/activate/:link", authorActivate);
+router.post("/refresh", refreshUserToken);
+router.get("/activate/:link", userActivate);
 
 router.get("/", getAll);
 router.get("/:id", userJwtGuard, userSelfGuard, getById); // agar boshqa id dan kirilsa malumotlarni korsatmaydi

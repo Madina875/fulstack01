@@ -7,7 +7,7 @@ const uuid = require("uuid");
 const config = require("config"); //default jsonnning ichidan malumotni chiqarib olish un kk
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
-const jwtService = require("../service/jwt.service");
+const { authJwtService } = require("../service/jwt.service");
 const mailService = require("../service/mail.service");
 
 const create = async (req, res) => {
@@ -108,7 +108,7 @@ const loginAuthor = async (req, res) => {
     //   expiresIn: config.get("tokenExpTime"),
     // });
 
-    const tokens = jwtService.generateTokens(payload);
+    const tokens = authJwtService.generateTokens(payload);
     author.refresh_token = tokens.refreshToken;
     await author.save();
 
@@ -118,18 +118,18 @@ const loginAuthor = async (req, res) => {
     });
 
     //-----------------------------test un error ---------------------------
-    //agar throw bolsa catch ushlab olmaydi
-    try {
-      setTimeout(function () {
-        throw new Error("UncaughtException example");
-      }, 1000);
-    } catch (error) {
-      console.log(error);
-    }
+    // //agar throw bolsa catch ushlab olmaydi
+    // try {
+    //   setTimeout(function () {
+    //     throw new Error("UncaughtException example");
+    //   }, 1000);
+    // } catch (error) {
+    //   console.log(error);
+    // }
 
-    new Promise((_, reject) => {
-      reject(new Error("UnHandledRejection example"));
-    });
+    // new Promise((_, reject) => {
+    //   reject(new Error("UnHandledRejection example"));
+    // });
 
     //-----------------------------test un error ---------------------------
 
@@ -179,7 +179,7 @@ const refreshAuthorToken = async (req, res) => {
     }
 
     //verify
-    await jwtService.verifyRefreshToken(refreshToken);
+    await authJwtService.verifyRefreshToken(refreshToken);
 
     const author = await Author.findOne({ refresh_token: refreshToken });
     if (!author) {
@@ -194,7 +194,7 @@ const refreshAuthorToken = async (req, res) => {
       is_export: author.is_export,
     };
 
-    const tokens = jwtService.generateTokens(payload);
+    const tokens = authJwtService.generateTokens(payload);
     author.refresh_token = tokens.refreshToken;
     await author.save();
 

@@ -1,7 +1,7 @@
 const config = require("config");
 const jwt = require("jsonwebtoken");
 
-class JwtService {
+class jwtService {
   constructor(accessKey, refreshKey, accessTime, refreshTime) {
     this.accessKey = accessKey;
     this.refreshKey = refreshKey;
@@ -32,10 +32,28 @@ class JwtService {
     return jwt.verify(token, this.refreshKey);
   }
 }
-
-module.exports = new JwtService(
+const authJwtService = new jwtService(
   config.get("access_key"),
   config.get("refresh_key"),
   config.get("access_time"),
-  config.get("refresh_time")
+  config.get("cookie_refresh_time")
 );
+
+const userJwtService = new jwtService(
+  config.get("access_keyUser"),
+  config.get("refresh_keyUser"),
+  config.get("access_timeUser"),
+  config.get("cookie_refresh_timeUser")
+);
+const adminJwtService = new jwtService(
+  config.get("access_keyAdmin"),
+  config.get("refresh_keyAdmin"),
+  config.get("access_timeAdmin"),
+  config.get("cookie_refresh_timeAdmin")
+);
+
+module.exports = {
+  authJwtService,
+  userJwtService,
+  adminJwtService,
+};
