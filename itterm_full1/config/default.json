@@ -1,0 +1,40 @@
+{
+  "port": 3333,
+  "dbUri": "mongodb+srv://superadmin:admin123@cluster0.uevvi7d.mongodb.net/itterm?retryWrites=true&w=majority&appName=Cluster0",
+  "tokenKey": "MySecretTokenKey",
+
+  "adminTokenKey": "MySecretTokenKeyAdmin",
+  "userTokenKey": "MySecretTokenKeyUser",
+
+  "tokenExpTime": "24h",
+
+  "access_key": "AccesTokenSecretKey",
+  "refresh_key": "RefreshTokenSecretKey",
+  "access_time": "15h",
+  "refresh_time": "15d",
+  "cookie_refresh_time": 1296000000,
+
+  "access_keyUser": "AccesTokenSecretKeyUser",
+  "refresh_keyUser": "RefreshTokenSecretKeyUser",
+  "access_timeUser": "15h",
+  "refresh_timeUser": "15d",
+  "cookie_refresh_timeUser": 1276000000,
+
+  "access_keyAdmin": "AccesTokenSecretKeyAdmin",
+  "refresh_keyAdmin": "RefreshTokenSecretKeyAdmin",
+  "access_timeAdmin": "15h",
+  "refresh_timeAdmin": "15d",
+  "cookie_refresh_timeAdmin": 1266000000,
+
+  "access_keyCategory": "AccesTokenSecretKeyAdmin",
+  "refresh_keyCategory": "RefreshTokenSecretKeyAdmin",
+  "access_timeCategory": "15h",
+  "refresh_timeCategory": "15d",
+  "cookie_refresh_timeCategory": 1266000000,
+
+  "smtp_password": "hiowzuwimymvxbmv",
+  "smtp_host": "smtp.gmail.com",
+  "smtp_port": 587,
+  "smtp_user": "evaevasmq@gmail.com",
+  "api_url": "http://localhost:3333"
+}
