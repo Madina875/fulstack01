@@ -22,8 +22,8 @@ const create = async (req, res) => {
 
 const getAll = async (req, res) => {
   try {
-    const author = await Topic.find();
-    res.status(200).send({ author });
+    const topic = await Topic.find();
+    res.status(200).send({ topic });
   } catch (error) {
     sendErrorResponse(error, res);
   }

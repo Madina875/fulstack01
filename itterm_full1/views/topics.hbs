@@ -1,0 +1,35 @@
+<h1 style="text-align: center; margin-bottom: 30px;">{{title}}</h1>
+<div class="topics-grid" style="
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  padding: 0 20px;
+">
+
+  {{#each topics}}
+    <div class="card" style="
+      background-color: #f9f9f9;
+      border: 1px solid #e0e0e0;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+      overflow: hidden;
+      transition: transform 0.2s;
+    " onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
+      
+      <img
+        src="https://cdn.textstudio.com/output/sample/normal/7/4/3/6/topic-logo-73-16347.png"
+        alt="Topic Image"
+        style="width: 100%; height: 180px; object-fit: cover;"
+      />
+      
+      <div style="padding: 15px;">
+        <p style="margin: 8px 0;"><strong>Created:</strong> {{created_date}}</p>
+        <p style="margin: 8px 0;"><strong>Updated:</strong> {{updated_date}}</p>
+        <p style="margin: 8px 0;"><strong>Author ID:</strong> {{author_id}}</p>
+        <p style="margin: 8px 0;"><strong>Approved:</strong> {{is_approved}}</p>
+        <p style="margin: 8px 0;"><strong>Checked:</strong> {{is_checked}}</p>
+      </div>
+    </div>
+  {{/each}}
+
+</div>

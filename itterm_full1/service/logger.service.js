@@ -7,7 +7,7 @@ const {
   timestamp,
   label,
   printf,
-  /*json*/ json,
+  json,
   prettyPrint,
   colorize,
 } = format;
@@ -40,3 +40,16 @@ const logger = createLogger({
 
 logger.exitOnError = false;
 module.exports = logger;
+
+
+
+/*
+Winston – bu Node.js uchun mashhur log yozish kutubxonasi. U quyidagilarni qo‘llab-quvvatlaydi:
+
+Turli log darajalari: error, warn, info, http, verbose, debug, silly
+
+Formatlash: JSON, string, timestamp
+
+Transportlar: log faylga, konsolga, yoki boshqa xizmatlarga yozish
+
+*/
