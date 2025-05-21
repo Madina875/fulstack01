@@ -2,6 +2,9 @@ const { Schema, model } = require("mongoose");
 
 const dictSchema = new Schema(
   {
+    name: { type: String },
+    passsword: { type: String },
+    email: { type: String },
     term: {
       type: String,
       required: true,

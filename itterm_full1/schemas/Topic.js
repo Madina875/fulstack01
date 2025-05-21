@@ -1,6 +1,15 @@
 const { Schema, model } = require("mongoose");
 
 const topicSchema = new Schema({
+  name: {
+    type: String,
+  },
+  password: {
+    type: String,
+  },
+  email: {
+    type: String,
+  },
   author_id: {
     type: Schema.Types.ObjectId,
     ref: "Author",

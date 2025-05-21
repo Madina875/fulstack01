@@ -1,7 +1,5 @@
 const { sendErrorResponse } = require("../../helpers/send_error_response");
 
-const config = require("config"); //default jsonnning ichidan malumotni chiqarib olish un kk
-const jwt = require("jsonwebtoken");
 const jwtService = require("../../service/jwt.service");
 
 module.exports = async (req, res, next) => {

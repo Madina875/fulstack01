@@ -31,7 +31,7 @@ function login() {
   });
 }
 
-async function getDicts() {
+async function getTopic() {
   let accessToken = localStorage.getItem("accessToken");
   const grid = document.querySelector(".topics-grid");
   const accessTokenExpTime = getTokenExpTime(accessToken);
@@ -66,13 +66,13 @@ async function getDicts() {
     })
     .catch((error) => {
       console.log("Error fetching dictionary:", error);
-      container.innerHTML = "<p style='color:red;'>Failed to load authors.</p>";
+      grid.innerHTML = "<p style='color:red;'>Failed to load authors.</p>";
     });
 }
 
-function displayDicts(topics) {
+function displayTopic(topics) {
   const grid = document.querySelector(".topics-grid");
-  grid.innerHTML = topics.topic
+  grid.innerHTML = topics
     .map(
       (topic) => `
           <div class="card" style="
