@@ -1,14 +1,13 @@
 function login() {
-  const container = document.querySelector(".container");
-
+  const container = document.getElementById("loginForm");
   container.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    const email = document.querySelector('input[name="email"]').value;
-    const password = document.querySelector('input[name="password"]').value;
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
 
     try {
-      const response = await fetch("http://localhost:3333/api/topic", {
+      const response = await fetch("http://localhost:3000/api/topic/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -48,7 +47,7 @@ async function getTopic() {
   } else {
     console.log("AccessToken chiqish vaqti berilmagan");
   }
-  fetch("http://localhost:3333/api/topic", {
+  fetch("http://localhost:3000/api/topic", {
     method: "GET",
     headers: {
       Authorization: `Bearer ${accessToken}`, //authorization
@@ -62,11 +61,11 @@ async function getTopic() {
       return responce.json();
     })
     .then((topics) => {
-      displayAuthors(topics.topic);
+      displayTopic(topics.topic);
     })
     .catch((error) => {
       console.log("Error fetching dictionary:", error);
-      grid.innerHTML = "<p style='color:red;'>Failed to load authors.</p>";
+      grid.innerHTML = "<p style='color:red;'>Failed to load topics.</p>";
     });
 }
 
@@ -124,7 +123,7 @@ function getTokenExpTime(token) {
 async function refreshToken() {
   const loginUrl = "/login";
   try {
-    const responce = await fetch("http://localhost:3333/api/topic/refresh", {
+    const responce = await fetch("http://localhost:3000/api/topic/refresh", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

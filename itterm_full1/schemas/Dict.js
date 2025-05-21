@@ -3,8 +3,8 @@ const { Schema, model } = require("mongoose");
 const dictSchema = new Schema(
   {
     name: { type: String },
-    passsword: { type: String },
-    email: { type: String },
+    password: { type: String },
+    email: { type: String, required: true },
     term: {
       type: String,
       required: true,

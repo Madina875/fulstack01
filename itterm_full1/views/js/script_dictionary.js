@@ -1,14 +1,13 @@
 function login() {
-  const container = document.querySelector(".container");
+  const container = document.getElementById("loginForm");
 
   container.addEventListener("submit", async (e) => {
     e.preventDefault();
-
-    const email = document.querySelector('input[name="email"]').value;
-    const password = document.querySelector('input[name="password"]').value;
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
 
     try {
-      const response = await fetch("http://localhost:3333/api/dict", {
+      const response = await fetch("http://localhost:3000/api/dict/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -48,7 +47,7 @@ async function getDicts() {
   } else {
     console.log("AccessToken chiqish vaqti berilmagan");
   }
-  fetch("http://localhost:3333/api/dict", {
+  fetch("http://localhost:3000/api/dict", {
     method: "GET",
     headers: {
       Authorization: `Bearer ${accessToken}`, //authorization
@@ -62,7 +61,7 @@ async function getDicts() {
       return responce.json();
     })
     .then((data) => {
-      displayAuthors(data.dicts);
+      displayDicts(data.dicts);
     })
     .catch((error) => {
       console.log("Error fetching dictionary:", error);
@@ -114,7 +113,7 @@ function getTokenExpTime(token) {
 async function refreshToken() {
   const loginUrl = "/login";
   try {
-    const responce = await fetch("http://localhost:3333/api/dict/refresh", {
+    const responce = await fetch("http://localhost:3000/api/dict/refresh", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

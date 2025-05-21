@@ -5,7 +5,7 @@ function login() {
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
     try {
-      fetch("http://localhost:3333/api/author/login", {
+      fetch("http://localhost:3000/api/author/login", {
         method: "POST",
         headers: {
           "Content-Type":
@@ -55,7 +55,7 @@ async function getAuthors() {
     console.log("AccessToken chiqish vaqti berilmagan");
   }
 
-  fetch("http://localhost:3333/api/author", {
+  fetch("http://localhost:3000/api/author", {
     method: "GET",
     headers: {
       Authorization: `Bearer ${accessToken}`, //authorization
@@ -117,7 +117,7 @@ function getTokenExpTime(token) {
 async function refreshToken() {
   const loginUrl = "/login";
   try {
-    const responce = await fetch("http://localhost:3333/api/author/refresh", {
+    const responce = await fetch("http://localhost:3000/api/author/refresh", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -137,3 +137,18 @@ async function refreshToken() {
     return window.location.replace(loginUrl);
   }
 }
+
+/*
+savoll:
+
+// foydalanuvchi brauzerga qanday qilib tokenni saqlash mumkin ?
+
+localStorage.setItem("accessToken", data.accessToken) qatori nimaga xizmat qiladi?
+
+A) tokenni serverga jo'natadi
+B) tokenni o'chiradi
+C) tokenni foydalanuvchi brauzeriga saqlaydi
+D) tokenni dekodlaydi
+
+✅ To‘g‘ri javob: C
+*/

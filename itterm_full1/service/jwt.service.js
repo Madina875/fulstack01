@@ -58,9 +58,17 @@ const topicJwtService = new jwtService(
   config.get("cookie_refresh_timeTopic")
 );
 
+const dictJwtService = new jwtService(
+  config.get("access_keyDict"),
+  config.get("refresh_keyDict"),
+  config.get("access_timeDict"),
+  config.get("cookie_refresh_timeDict")
+);
+
 module.exports = {
   authJwtService,
   userJwtService,
   adminJwtService,
   topicJwtService,
+  dictJwtService,
 };

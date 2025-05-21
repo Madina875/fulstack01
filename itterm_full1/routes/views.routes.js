@@ -25,7 +25,7 @@ router.get("/authors", async (req, res) => {
 router.get("/dictionary", async (req, res) => {
   res.render(createViewPage("dictionary"), {
     title: "Lug'atlar sahifasi",
-    isTopic: true,
+    isDict: true,
   });
 });
 
