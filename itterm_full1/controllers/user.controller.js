@@ -108,18 +108,21 @@ const loginUser = async (req, res) => {
       maxAge: config.get("cookie_refresh_timeUser"),
     });
 
-    res.status(201).send({ message: "welcome", id: user.id, tokens });
+    res.status(201).send({
+      message: "welcome",
+      id: user.id,
+      accessToken: tokens.accessToken,
+    });
   } catch (error) {
     sendErrorResponse(error, res);
   }
 };
 
 const logoutUser = async (req, res) => {
-  try {  
-
+  try {
     const { refreshToken } = req.cookies;
     console.log(refreshToken);
-    
+
     if (!refreshToken) {
       return res
         .status(400)

@@ -101,11 +101,6 @@ const loginAdmin = async (req, res) => {
       // is_active: admin.is_active,
       // is_export: admin.is_export,
     };
-
-    // const token = jwt.sign(payload, config.get("adminTokenKey"), {
-    //   expiresIn: config.get("tokenExpTime"),
-    // });
-
     const tokens = adminJwtService.generateTokens(payload);
     admin.refresh_token = tokens.refreshToken;
     await admin.save();
@@ -115,7 +110,11 @@ const loginAdmin = async (req, res) => {
       maxAge: config.get("cookie_refresh_timeAdmin"),
     });
 
-    res.status(201).send({ message: "welcome", id: admin.id, tokens });
+    res.status(201).send({
+      message: "welcome",
+      id: admin.id,
+      accessToken: tokens.accessToken,
+    });
   } catch (error) {
     sendErrorResponse(error, res);
   }

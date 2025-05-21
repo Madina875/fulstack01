@@ -51,16 +51,16 @@ const adminJwtService = new jwtService(
   config.get("access_timeAdmin"),
   config.get("cookie_refresh_timeAdmin")
 );
-// const categoryJwtService = new jwtService(
-//   config.get("access_keyCategory"),
-//   config.get("refresh_keyCategory"),
-//   config.get("access_timeCategory"),
-//   config.get("cookie_refresh_timeCategory")
-// );
+const topicJwtService = new jwtService(
+  config.get("access_keyTopic"),
+  config.get("refresh_keyTopic"),
+  config.get("access_timeTopic"),
+  config.get("cookie_refresh_timeTopic")
+);
 
 module.exports = {
   authJwtService,
   userJwtService,
   adminJwtService,
-  // categoryJwtService,
+  topicJwtService,
 };

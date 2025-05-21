@@ -10,8 +10,8 @@
 
   "access_key": "AccesTokenSecretKey",
   "refresh_key": "RefreshTokenSecretKey",
-  "access_time": "15h",
-  "refresh_time": "15d",
+  "access_time": "15s",
+  "refresh_time": "30s",
   "cookie_refresh_time": 1296000000,
 
   "access_keyUser": "AccesTokenSecretKeyUser",
@@ -31,6 +31,12 @@
   "access_timeCategory": "15h",
   "refresh_timeCategory": "15d",
   "cookie_refresh_timeCategory": 1266000000,
+
+  "access_keyTopic": "AccesTokenSecretKeyTopic",
+  "refresh_keyTopic": "RefreshTokenSecretKeyTopic",
+  "access_timeTopic": "15h",
+  "refresh_timeTopic": "15d",
+  "cookie_refresh_timeTopic": 1277000000,
 
   "smtp_password": "hiowzuwimymvxbmv",
   "smtp_host": "smtp.gmail.com",

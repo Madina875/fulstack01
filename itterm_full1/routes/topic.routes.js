@@ -5,7 +5,6 @@ const {
   update,
   remove,
 } = require("../controllers/topic.controller");
-
 const router = require("express").Router();
 
 router.post("/create", create);

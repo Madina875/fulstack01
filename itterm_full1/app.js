@@ -13,7 +13,9 @@ app.use(cookieParser());
 
 //----------------------------------------------------------------------------------------------
 /*
-----------------------
+partials da - Qayta foydalaniladigan bo‘laklar
+layouts da - Sahifaning asosiy strukturasi (skeleti)
+-------------------------------------------------------
 🧩 3. .hbs kengaytmasi nima uchun kerak?
 .hbs — bu Handlebars shablonlari uchun kengaytma.
 

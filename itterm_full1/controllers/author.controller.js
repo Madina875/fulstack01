@@ -16,9 +16,11 @@ const create = async (req, res) => {
     }
 
     const hashedPassword = bcrypt.hashSync(value.password, 7);
+
     const activation_link = uuid.v4();
     const newAuthor = await Author.create({
       ...value,
+
       password: hashedPassword,
       activation_link,
     });
@@ -37,7 +39,7 @@ const create = async (req, res) => {
 const getAll = async (req, res) => {
   try {
     const author = await Author.find();
-    res.status(200).send(author);
+    res.status(200).send({ authors: author });
   } catch (error) {
     sendErrorResponse(error, res);
   }
@@ -130,7 +132,13 @@ const loginAuthor = async (req, res) => {
 
     //-----------------------------test un error ---------------------------
 
-    res.status(201).send({ message: "welcome", id: author.id, tokens });
+    res
+      .status(201)
+      .send({
+        message: "welcome",
+        id: author.id,
+        accessToken: tokens.accessToken,
+      });
   } catch (error) {
     sendErrorResponse(error, res);
   }

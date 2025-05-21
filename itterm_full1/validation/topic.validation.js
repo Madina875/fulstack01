@@ -2,6 +2,9 @@ const Joi = require("joi");
 
 exports.topicValidation = (body) => {
   const schema = Joi.object({
+    name: Joi.string(),
+    password: Joi.string(),
+    email: Joi.string(),
     author_id: Joi.string(),
     topic_title: Joi.string(),
     topic_text: Joi.string(),
