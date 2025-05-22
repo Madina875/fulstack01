@@ -33,7 +33,7 @@ const getById = async (req, res) => {
   try {
     const id = req.params.id;
     const stage = await pool.query(
-      "select FROM stage WHERE id = $1 RETURNING *",
+      `select  FROM stage WHERE id=$1 RETURNING * `,
       [id]
     );
     console.log(stage);
